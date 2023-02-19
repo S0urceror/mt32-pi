@@ -48,3 +48,6 @@ sdcard/*
 *.exe
 *.out
 *.app
+
+# MACOS stuff
+**/.DS_Store
