@@ -22,6 +22,15 @@
 
 #include <type_traits>
 
+#define RESET_PIN
+
+#ifdef RESET_PIN
+	#include <circle/timer.h>
+	#include <circle/sched/scheduler.h>
+	#include "circle/gpiopin.h"
+
+	constexpr u8 GPIO_lcd_reset = 10;
+#endif 
 #include "lcd/drivers/ssd1306.h"
 #include "lcd/font6x8.h"
 #include "lcd/images.h"
@@ -207,6 +216,15 @@ bool CSSD1306::Initialize()
 		SetColumnAddress,		0x00,	nColumnAddrRange,
 		SetPageAddress,			0x00,	nPageAddrRange,
 	};
+
+#ifdef RESET_PIN
+	CGPIOPin  reset (GPIO_lcd_reset,TGPIOMode::GPIOModeOutput);
+	reset.Write (HIGH);
+	CScheduler::Get ()->MsSleep (1);
+	reset.Write (LOW);
+	CScheduler::Get ()->MsSleep (10);
+	reset.Write (HIGH);
+#endif
 
 	for (u8 nCommand : InitSequence)
 		WriteCommand(nCommand);

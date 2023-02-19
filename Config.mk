@@ -4,7 +4,7 @@
 
 # Paths to ARM toolchains
 ARM_HOME?=$(HOME)/gcc-arm-10.3-2021.07-x86_64-arm-none-eabi
-AARCH64_HOME?=$(HOME)/gcc-arm-10.3-2021.07-x86_64-aarch64-none-elf
+AARCH64_HOME?=$(HOME)/arm-gnu-toolchain-12.2.rel1-aarch64-aarch64-none-elf
 
 # Valid options: pi3, pi3-64, pi4, pi4-64
 BOARD?=pi3-64
