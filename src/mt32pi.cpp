@@ -54,6 +54,7 @@ enum class TCustomSysExCommand : u8
 	SwitchSoundFont       = 0x02,
 	SwitchSynth           = 0x03,
 	SetMT32ReversedStereo = 0x04,
+	SetVolume			  = 0x05,
 };
 
 CMT32Pi* CMT32Pi::s_pThis = nullptr;
@@ -748,6 +749,13 @@ bool CMT32Pi::ParseCustomSysEx(const u8* pData, size_t nSize)
 		{
 			if (m_pMT32Synth)
 				m_pMT32Synth->SetReversedStereo(nParameter);
+			return true;
+		}
+
+		// Set Volume (F0 7D 05 xx F7)
+		case TCustomSysExCommand::SetVolume:
+		{
+			SetMasterVolume (nParameter);
 			return true;
 		}
 
